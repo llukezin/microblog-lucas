@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Nov-2023 às 21:27
+-- Tempo de geração: 16-Nov-2023 às 21:34
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.1.12
 
@@ -39,15 +39,6 @@ CREATE TABLE `noticias` (
   `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `noticias`
---
-
-INSERT INTO `noticias` (`id`, `data`, `titulo`, `texto`, `resumo`, `imagem`, `usuario_id`) VALUES
-(1, '2023-11-14 16:25:06', 'Descoberto oxigênio em Vênus', 'Nesta manhã, uma decoberta incrivel foi feitas por astronomos a fina atmosfera marciana é composta por 96% de dióxido de carbono, tornando o ar irrespirável para os humanos. O Moxie funciona dividindo moléculas de dióxido de carbono, que incluem um átomo de carbono e dois átomos de oxigênio.', 'Recentemente o telescopio no Havai encontrou traços de oxigênio no planeta...', 'venus,jpg', 1),
-(2, '2023-11-14 16:36:34', 'Nova versão do VSCode', 'A Microsoft trouxe recursos de Inteligência Artificial...', 'Recentemente o VSCode foi atualizado...', 'vscode,png', 4),
-(3, '2023-11-14 16:36:34', 'Onda de calor no Brasil', 'Efeitos do aquecimentos global estão prejudicando a vida...', 'Temperaturas muito acima da média', 'sol.svg', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -67,9 +58,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`) VALUES
-(1, 'Luke Mendonça', 'llukezinnegocios@gmail.com', '40028922', 'admin'),
-(3, 'Beltrano Soares', 'beltrano@msn.com', '000penha', 'admin'),
-(4, 'Chapolin Colorado', 'chapolin@vingadores.com.br', 'marreta', 'admin');
+(1, 'lucas', 'lluke@gmail.com', '$2y$10$a0osHw6VI1e7umMxrg1CU.k43xocn5woMCeTGDpZkdCCPagiqQnrS', 'admin'),
+(2, 'juan', 'juan@gmail.com', '$2y$10$F2wByvYpoa3DUso9a.2re.pJfuxj6zJP9kOoK3ICs5.3x/UrOG13e', 'admin');
 
 --
 -- Índices para tabelas despejadas
@@ -97,13 +87,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `noticias`
 --
 ALTER TABLE `noticias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para despejos de tabelas

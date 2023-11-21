@@ -17,6 +17,9 @@ if( isset($_POST['inserir']) ){
 
 	// Chamando a função e repassando os dados a serem inseridos
 	inserirUsuario($conexao, $nome, $email, $senha, $tipo);
+
+	// redirecionando para a pagina que lista os usuarios
+	header("location:usuarios.php");
 }
 ?>
 
