@@ -14,7 +14,7 @@ function inserirUsuario($conexao, $nome, $email, $senha, $tipo){
 }
 
 
-function lerUSuarios($conexao){
+function lerUsuarios($conexao){
     // Comando SQL para fazerm a leitura de dados (SELECT)
     $sql = "SELECT id, nome, email, tipo FROM usuarios ORDER BY nome";
 

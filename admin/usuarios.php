@@ -1,5 +1,9 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
+require_once "../inc/funcoes-usuarios.php";
+
+/* chamamos a função lerUsuarios que ao terminar de fazer os processos, ela retorna os dados do resultado da consulta/query. */
+$listadeUsuarios = lerUsuarios($conexao);
 ?>
 
 
@@ -7,7 +11,9 @@ require_once "../inc/cabecalho-admin.php";
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">
-		Usuários <span class="badge bg-dark">X</span>
+		Usuários <span class="badge bg-dark">
+			<?=count($listadeUsuarios)?>
+		</span>
 		</h2>
 
 		<p class="text-center mt-5">
@@ -28,26 +34,27 @@ require_once "../inc/cabecalho-admin.php";
 					</tr>
 				</thead>
 
-				<tbody>
-
+				<tbody>						
+<?php foreach( $listadeUsuarios as $usuario ) { ?>
 					<tr>
-						<td> Nome... </td>
-						<td> E-mail... </td>
-						<td> Tipo... </td>
+						<td> <?= $usuario['nome'] ?> </td>
+						<td> <?= $usuario['email'] ?> </td>
+						<td> <?= $usuario['tipo'] ?> </td>
 						<td class="text-center">
 							<a class="btn btn-warning" 
-							href="usuario-atualiza.php">
+							href="usuario-atualiza.php?id=<?=$usuario['id']?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="usuario-exclui.php">
+							href="usuario-exclui.php?id=<?=$usuario['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>
 					</tr>
 
-				</tbody>                
+				</tbody>   
+<?php }?>
 			</table>
 	</div>
 		
