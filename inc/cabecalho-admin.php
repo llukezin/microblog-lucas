@@ -2,6 +2,12 @@
 require "funcoes-sessao.php";
 verificaAcesso();
 
+// detectando se o link "Sair" foi acionado
+if(isset($_GET["sair"])){
+    // Se foi, "desloga/desconecta" o usuario
+    logout();
+}
+
 
 // Guardando o nome da página atual
 $pagina = basename($_SERVER['PHP_SELF']);
@@ -54,7 +60,7 @@ $pagina = basename($_SERVER['PHP_SELF']);
                 <a class="nav-link" href="../index.php" target="_blank">Área pública</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href=""> <i class="bi bi-x-circle"></i> Sair</a>
+                <a class="nav-link fw-bold" href="?sair"> <i class="bi bi-x-circle"></i> Sair</a>
             </li>
         </ul>
 

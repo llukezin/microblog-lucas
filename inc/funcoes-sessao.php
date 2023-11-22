@@ -7,7 +7,7 @@ Exemplos: área administrativa, painel de controle, área de cliente/aluno etc.
 Nestas áreas o acesso só é possivel mediante alguma forma de autenticação. Exemplos: Login/senha, digital, facial etc.*/
 
 /*  Verificar se já NÃO EXISTE uma sessão em funcionamento */
-if( isset($_SESSION) ){
+if( !isset($_SESSION) ){
     // então inicie uma sessão
     session_start();
 }
@@ -28,9 +28,9 @@ function login($id, $nome, $tipo){
     /* Criação de variaveis de sessão
     Recursos que ficam disponiveis par o uso durante toda a duração da sessão,
     ou seja , enquanto o nevador não for fechado ou osuario não clicar em sair */
-    $_SESSION["id"] = $id;
-    $_SESSION["nome"] = $nome;
-    $_SESSION["tipo"] = $tipo;
+    $_SESSION['id'] = $id;
+    $_SESSION['nome'] = $nome;
+    $_SESSION['tipo'] = $tipo;
 }
 
 function logout(){
