@@ -22,3 +22,19 @@ function verificaAcesso(){
         exit; // die()
     }
 }
+
+
+function login($id, $nome, $tipo){
+    /* Criação de variaveis de sessão
+    Recursos que ficam disponiveis par o uso durante toda a duração da sessão,
+    ou seja , enquanto o nevador não for fechado ou osuario não clicar em sair */
+    $_SESSION["id"] = $id;
+    $_SESSION["nome"] = $nome;
+    $_SESSION["tipo"] = $tipo;
+}
+
+function logout(){
+    session_destroy();
+    header("location:../login.php?saiu");
+    exit; // ou die()
+}
