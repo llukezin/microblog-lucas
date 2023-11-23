@@ -16,7 +16,13 @@ if(isset($_POST['inserir'])){
 	/*  Enviando o arquivo para servidor */
 
 	upload($imagem);
-}
+
+	/*  Chamando a função para inserir a noticia */
+	inserirNoticia($conexao, $titulo, $texto, $resumo, $imagem['name'], $usuarioId );
+
+	header("location:noticias.php");
+
+}// fim if isset inserir
 ?>
 
 

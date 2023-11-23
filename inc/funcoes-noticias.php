@@ -2,10 +2,13 @@
 require "conecta.php";
 
 /* Usada em noticia-insere.php */
-function inserirNoticia($conexao){
+function inserirNoticia($conexao, $titulo, $texto, $resumo, $nomeImagem, $usuarioId){
     
+    $sql = "INSERT INTO noticias(titulo, texto, resumo, imagem, usuario_id 
+            ) VALUES(
+                '$titulo', '$texto', '$resumo', '$nomeImagem', $usuarioId )";
 
-    // mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+    mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
 } // fim inserirNoticia
 
@@ -39,7 +42,7 @@ function upload($arquivo){
     //definindo para onde a imagem vai e com qual nome
     $destino = "../imagens/".$nome;
 
-    // movendo o arquivo da area temporaria para a pasta final
+    // movendo o arquivo da area temporaria paa a pasta final
     move_uploaded_file($temporario, $destino);
 } // fim upload
 
