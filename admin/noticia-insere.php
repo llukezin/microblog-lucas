@@ -1,5 +1,22 @@
 <?php 
+require_once "../inc/funcoes-noticias.php";
 require_once "../inc/cabecalho-admin.php";
+
+if(isset($_POST['inserir'])){
+	$titulo = $_POST['titulo'];
+	$texto = $_POST['texto'];
+	$resumo = $_POST['resumo'];
+
+	/* obtendo o id da pessoa que esta logada na sessão, e que esta cadastrando uma noticia */
+	$usuarioId = $_SESSION['id'];
+
+	/* Capturando dados do arquivo de imagem /foto */
+	$imagem = $_FILES['imagem'];
+
+	/*  Enviando o arquivo para servidor */
+
+	upload($imagem);
+}
 ?>
 
 
@@ -10,7 +27,7 @@ require_once "../inc/cabecalho-admin.php";
 		Inserir nova notícia
 		</h2>
 				
-		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">            
+		<form enctype="multipart/form-data" class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">            
 
 			<div class="mb-3">
                 <label class="form-label" for="titulo">Título:</label>
