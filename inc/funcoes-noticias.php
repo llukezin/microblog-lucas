@@ -48,10 +48,23 @@ function upload($arquivo){
 
 
 /* Usada em noticias.php */
-function lerNoticias($conexao){
+function lerNoticias($conexao, $idUsuario, $tipoUsuario){
+    /*  Verificando se o tipo de usuario e admin */
+    if ( $tipoUsuario == 'admin' ) {
+       // SQL do admin: pode carregar/ver TUDO de TODOS
+       $sql = "SELECT noticias.id, noticias.titulo, noticias.data, usuarios.nome AS autor FROM noticias JOIN usuarios ON noticias.usuario_id = usuarios.id
+        ORDER BY data DESC";
+    } else {
+        /*  SQL do editor pode carregar/ver TUDO DELE SOMENTE  */
+        $sql = "SELECT id, titulo, data FROM noticias
+                WHERE usuario_id = $idUsuario ORDER BY data DESC";
+    }
     
+    // Executando a consulta e guardando o resultado dela
+     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
-    // mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+    // Retornando o resultado convertido em uma matriz/array
+     return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
 } // fim lerNoticias
 
