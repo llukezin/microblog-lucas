@@ -56,12 +56,12 @@ $listaDeNoticias = lerNoticias($conexao, $idUsuario, $tipoUsuario);
 
 						<td class="text-center">
 							<a class="btn btn-warning" 
-							href="noticia-atualiza.php">
+							href="noticia-atualiza.php?id=<?=$noticia['id']?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="noticia-exclui.php">
+							href="noticia-exclui.phpid=<?=$noticia['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>
