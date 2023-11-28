@@ -13,11 +13,26 @@ $tipoUsuario = $_SESSION['tipo'];
 $noticia = lerUmaNoticia(
     $conexao,  $idNoticia, $idUsuario, $tipoUsuario);
 
-    echo "<pre>";
-    var_dump($noticia);
-    echo "</pre>";
+if(isset($_POST['atualizar'])){
+    $titulo = $_POST['titulo'];
+    $texto = $_POST['texto'];
+    $resumo = $_POST['resumo'];
 
+    /*  Logica/Algoritmo para a imagem */
 
+     /*  Se o campo imagem estiver vazio, então significa que o usuario NÃO QUER TROCAR A IMAGEM. Ou seja, o sistema vai manter a imagem existente. */
+    if( empty($_FILES['imagem']['name']) ){
+        $imagem = $_POST['imagem-existente'];
+    } else {
+     /* Caso contrario, então pegamos a referencia do novo arquivo (nome e extensão) e fazemos o processo de upload. */
+     $imagem = $_FILES['imagem']['name'];
+     upload($_FILES['imagem']);
+}
+
+atualizarNoticia($conexao, $titulo, $texto, $resumo, $imagem, $idNoticia, $idUsuario, $tipoUsuario);
+
+header("location:noticias.php");
+} // fim if isset
 ?>
 
 
