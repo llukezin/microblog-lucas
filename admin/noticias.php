@@ -11,6 +11,8 @@ $tipoUsuario = $_SESSION['tipo'];
 // Chamando a função e passando os parametros
 $listaDeNoticias = lerNoticias($conexao, $idUsuario, $tipoUsuario);
 
+
+
 ?>
 
 
@@ -61,7 +63,7 @@ $listaDeNoticias = lerNoticias($conexao, $idUsuario, $tipoUsuario);
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="noticia-exclui.phpid=<?=$noticia['id']?>">
+							href="noticia-exclui.php?id=<?=$noticia['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>
