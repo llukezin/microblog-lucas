@@ -3,9 +3,9 @@ require_once "../inc/funcoes-noticias.php";
 require_once "../inc/cabecalho-admin.php";
 
 if(isset($_POST['inserir'])){
-	$titulo = $_POST['titulo'];
-	$texto = $_POST['texto'];
-	$resumo = $_POST['resumo'];
+	$titulo = htmlspecialchars($_POST['titulo']);
+	$texto = htmlspecialchars($_POST['texto']);
+	$resumo = htmlspecialchars($_POST['resumo']);
 	
 	/* Obtendo o id da pessoa que está logada
 	na sessão, e que está cadastrando uma notícia */
