@@ -1,18 +1,15 @@
-<?php 
+<?php // admin/noticias.php
 require_once "../inc/funcoes-noticias.php";
 require_once "../inc/cabecalho-admin.php";
 
-// id do ususario logado
+// id do usuário logado
 $idUsuario = $_SESSION['id'];
 
-// tipo do usuario logado
+// tipo do usuário logado
 $tipoUsuario = $_SESSION['tipo'];
 
-// Chamando a função e passando os parametros
+// Chamando a função e passando os parâmetros
 $listaDeNoticias = lerNoticias($conexao, $idUsuario, $tipoUsuario);
-
-
-
 ?>
 
 
@@ -20,7 +17,10 @@ $listaDeNoticias = lerNoticias($conexao, $idUsuario, $tipoUsuario);
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">
-		Notícias <span class="badge bg-dark"> <?=count($listaDeNoticias)?></span>
+		Notícias 
+			<span class="badge bg-dark"> 
+				<?=count($listaDeNoticias)?> 
+			</span>
 		</h2>
 
 		<p class="text-center mt-5">
@@ -36,9 +36,9 @@ $listaDeNoticias = lerNoticias($conexao, $idUsuario, $tipoUsuario);
 					<tr>
                         <th>Título</th>
                         <th>Data</th>
-						
+					
 					<?php if($tipoUsuario == "admin"){ ?>
-                        <th>Autor</th>
+						<th>Autor</th>
 					<?php } ?>
 
 						<th class="text-center">Operações</th>
@@ -50,26 +50,26 @@ $listaDeNoticias = lerNoticias($conexao, $idUsuario, $tipoUsuario);
 <?php foreach($listaDeNoticias as $noticia) { ?>
 					<tr>
                         <td> <?=$noticia['titulo']?> </td>
-                        <td> <?=formataData($noticia['data'])?> </td>
-						
-						<?php if($tipoUsuario == "admin"){ ?>
-							<td> <?=$noticia['autor']?> </td>
-                        <?php } ?>
+                        <td> 
+							<?=formataData($noticia['data'])?> 
+						</td>
 
+					<?php if($tipoUsuario == "admin"){ ?>
+                        <td> <?=$noticia['autor']?> </td>
+					<?php } ?>
 						<td class="text-center">
 							<a class="btn btn-warning" 
-							href="noticia-atualiza.php?id=<?=$noticia['id']?>">
+		href="noticia-atualiza.php?id=<?=$noticia['id']?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="noticia-exclui.php?id=<?=$noticia['id']?>">
+		href="noticia-exclui.php?id=<?=$noticia['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>
 					</tr>
 <?php } ?>
-
 				</tbody>                
 			</table>
 	</div>

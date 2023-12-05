@@ -2,14 +2,17 @@
 require "conecta.php";
 
 /* Usada em noticia-insere.php */
-function inserirNoticia($conexao, $titulo, $texto, $resumo, $nomeImagem, $usuarioId){
-    
-    $sql = "INSERT INTO noticias(titulo, texto, resumo, imagem, usuario_id 
+function inserirNoticia($conexao, $titulo, $texto, 
+    $resumo, $nomeImagem, $usuarioId){
+
+    $sql = "INSERT INTO noticias(
+                titulo, texto, resumo, imagem, usuario_id
             ) VALUES(
-                '$titulo', '$texto', '$resumo', '$nomeImagem', $usuarioId )";
+                '$titulo', '$texto', '$resumo', 
+                '$nomeImagem', $usuarioId
+            )";    
 
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
-
 } // fim inserirNoticia
 
 
@@ -22,82 +25,89 @@ function upload($arquivo){
     // (precisa ser igual ao que está no HTML)
     $tiposValidos = [
         "image/png", "image/jpeg",
-        "image-gif", "image/svg+xml"
+        "image/gif", "image/svg+xml"
     ];
 
-    // Verifiando se o tipo do arquivo NÃO É um dos suportados
-    if(!in_array($arquivo['type'], $tiposValidos)){
+    // Verificando se o tipo do arquivo NÃO É um dos suportados
+    if( !in_array($arquivo['type'], $tiposValidos) ){
         echo "<script>
             alert('Formato inválido!'); history.back();
             </script>";
-            exit;
+        exit;
     }
 
-    // obtendo apenas o nome/extensão do arquivo
-    $nome = $arquivo['name'];
+    // Obtendo apenas o nome/extensão do arquivo
+    $nome = $arquivo['name']; 
 
-    // Obtendo informações de acesso temporario
+    // Obtendo informações de acesso temporário
     $temporario = $arquivo['tmp_name'];
 
-    //definindo para onde a imagem vai e com qual nome
+    // Definindo para onde a imagem vai e com qual nome
     $destino = "../imagens/".$nome;
 
-    // movendo o arquivo da area temporaria paa a pasta final
+    // Movendo o arquivo da área temporária para a pasta final
     move_uploaded_file($temporario, $destino);
 } // fim upload
 
 
+
 /* Usada em noticias.php */
 function lerNoticias($conexao, $idUsuario, $tipoUsuario){
-    /*  Verificando se o tipo de usuario e admin */
+    
+    /* Verificando se o tipo de usuário é admin */
     if ( $tipoUsuario == 'admin' ) {
-       // SQL do admin: pode carregar/ver TUDO de TODOS
-       $sql = "SELECT noticias.id, noticias.titulo, noticias.data, usuarios.nome AS autor FROM noticias JOIN usuarios ON noticias.usuario_id = usuarios.id
-        ORDER BY data DESC";
+        // SQL do admin: pode carregar/ver TUDO de TODOS
+        $sql = "SELECT 
+                    noticias.id, 
+                    noticias.titulo, 
+                    noticias.data, 
+                    usuarios.nome AS autor
+                FROM noticias JOIN usuarios
+                ON noticias.usuario_id = usuarios.id
+                ORDER BY data DESC";
     } else {
-        /*  SQL do editor pode carregar/ver TUDO DELE SOMENTE  */
-        $sql = "SELECT id, titulo, data FROM noticias
+        /* SQL do editor: pode carregar/ver TUDO DELE SOMENTE */
+        $sql = "SELECT id, titulo, data FROM noticias 
                 WHERE usuario_id = $idUsuario ORDER BY data DESC";
     }
     
     // Executando a consulta e guardando o resultado dela
-     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+    $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
     // Retornando o resultado convertido em uma matriz/array
-     return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+    return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
 } // fim lerNoticias
 
 
 /* Usada em noticias.php e páginas da área pública */
-function formataData($data){
-    $dataFormatada = date("d/m/Y h:i", strtotime($data));
-    return $dataFormatada;    
-    
+function formataData($data){    
+    $dataFormatada = date("d/m/Y H:i", strtotime($data)); 
+    return $dataFormatada;
 } // fim formataData
 
 
 /* Usada em noticia-atualiza.php */
-function lerUmaNoticia($conexao, $idNoticia, $idUsuario, $tipoUsuario){
-    
+function lerUmaNoticia(
+    $conexao, $idNoticia, $idUsuario, $tipoUsuario){
+
     if($tipoUsuario == "admin"){
+        /* Pode carregar dados de qualquer noticia de qualquer pessoa */
         $sql = "SELECT * FROM noticias WHERE id = $idNoticia";
     } else {
-        /* Pode carregar dados,de qualquer notícia DELE [EDITOR] APENAS */
-        $sql = "SELECT * FROM noticias
-        WHERE id = $idNoticia
-        AND usuario_id = $idUsuario";
-    }
-    
+        /* Pode carregar dados de qualquer notícia 
+        DELE [EDITOR] APENAS */
+        $sql = "SELECT * FROM noticias 
+                WHERE id = $idNoticia 
+                AND usuario_id = $idUsuario";
+    }      
+
     // Executando o comando SQL e guardando o resultado
-     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+    $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
-     // Retornando UM UNICO array com os dados da noticia
-     return mysqli_fetch_assoc($resultado);
-
-
+    // Retornando UM ÚNICO array com os dados da notícia
+    return mysqli_fetch_assoc($resultado);
 } // fim lerUmaNoticia
-
 
 
 /* Usada em noticia-atualiza.php */
@@ -158,19 +168,20 @@ function lerTodasAsNoticias($conexao){
 
 
 /* Usada em noticia.php */
-    function lerDetalhes($conexao, $id){
-        $sql = "SELECT noticias.id,
-        noticias.titulo,
-        noticias.data,
-        noticias.imagem,
-        noticias.texto,
-        usuarios.nome AS autor
-        FROM noticias JOIN usuarios
-        ON noticias.usuario_id = usuarios.id
-        WHERE noticias.id = $id";
+function lerDetalhes($conexao, $id){
+    $sql = "SELECT 
+                noticias.id, 
+                noticias.titulo, 
+                noticias.data, 
+                noticias.imagem,
+                noticias.texto,
+                usuarios.nome AS autor
+            FROM noticias JOIN usuarios
+            ON noticias.usuario_id = usuarios.id
+            WHERE noticias.id = $id";
 
-
-    $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+    $resultado = mysqli_query($conexao, $sql) 
+                or die(mysqli_error($conexao));
 
     return mysqli_fetch_assoc($resultado);
 
@@ -178,8 +189,15 @@ function lerTodasAsNoticias($conexao){
 
 
 /* Usada em resultados.php */
-function busca($conexao){
+function busca($conexao, $termoDigitado){ 
+    $sql = "SELECT * FROM noticias
+            WHERE titulo LIKE '%$termoDigitado%'  OR
+                resumo LIKE '%$termoDigitado%'  OR
+                texto  LIKE '%$termoDigitado%'
+            ORDER BY data DESC";
     
-    // mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
+    $resultado = mysqli_query($conexao, $sql) 
+                or die (mysqli_error($conexao));
 
+    return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 } // fim busca

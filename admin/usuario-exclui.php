@@ -1,9 +1,10 @@
 <?php
-require "funcoes-sessao.php";
+require "../inc/funcoes-sessao.php";
 require "../inc/funcoes-usuarios.php";
+
 verificaAcesso();
 
-// Verificando se o usuario pode entrar nesta pagina
+// Verificando se o usuário pode entrar nesta página
 verificaTipo();
 
 $id = $_GET['id'];

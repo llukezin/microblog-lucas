@@ -16,5 +16,7 @@
     color: black;
 }
 
-/* Esta propriedade pegara os espaços em branco existentes no texto, e adicionara "quebras" em cada um deles */
-.ajusta-texto { white-space: pre-wrap;} 
+/* Esta propriedade pegará os espaços
+em branco existentes no texto, e adicionará
+"quebras" em cada um deles. */
+.ajusta-texto { white-space: pre-wrap; }

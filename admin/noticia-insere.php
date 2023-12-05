@@ -6,23 +6,26 @@ if(isset($_POST['inserir'])){
 	$titulo = $_POST['titulo'];
 	$texto = $_POST['texto'];
 	$resumo = $_POST['resumo'];
-
-	/* obtendo o id da pessoa que esta logada na sessão, e que esta cadastrando uma noticia */
+	
+	/* Obtendo o id da pessoa que está logada
+	na sessão, e que está cadastrando uma notícia */
 	$usuarioId = $_SESSION['id'];
 
-	/* Capturando dados do arquivo de imagem /foto */
+	/* Capturando dados do arquivo de imagem/foto */
 	$imagem = $_FILES['imagem'];
 
-	/*  Enviando o arquivo para servidor */
-
+	/* Enviando o arquivo para o servidor */
 	upload($imagem);
 
-	/*  Chamando a função para inserir a noticia */
-	inserirNoticia($conexao, $titulo, $texto, $resumo, $imagem['name'], $usuarioId );
+	/* Chamando a função para inserir a notícia */
+	inserirNoticia(
+		$conexao, $titulo, $texto, $resumo, 
+		$imagem['name'], $usuarioId
+	);
 
 	header("location:noticias.php");
 
-}// fim if isset inserir
+} // fim if isset inserir
 ?>
 
 
@@ -33,6 +36,8 @@ if(isset($_POST['inserir'])){
 		Inserir nova notícia
 		</h2>
 				
+		<!-- O atributo enctype com o valor indicado
+		permite ao formulário receber arquivos -->
 		<form enctype="multipart/form-data" class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">            
 
 			<div class="mb-3">
@@ -53,7 +58,8 @@ if(isset($_POST['inserir'])){
 
 			<div class="mb-3">
                 <label class="form-label" for="imagem" class="form-label">Selecione uma imagem:</label>
-                <input required class="form-control" type="file" id="imagem" name="imagem"
+                <input required 
+				class="form-control" type="file" id="imagem" name="imagem"
                 accept="image/png, image/jpeg, image/gif, image/svg+xml">
 			</div>
 			
